@@ -21,7 +21,7 @@ class RawMaterial:
         self.demanded = 0
         self.price = 0
         self.totalPrice = 0
-        RawMaterial.nRawMaterials = RawMaterial.nRawMaterials + 1
+        RawMaterial.nRawMaterials += 1
         
     def updateSupplyPars(self, supCoeffIn, supExpIn, supInterIn):
         self.supCoeff = supCoeffIn
@@ -41,18 +41,22 @@ class RawMaterial:
         return self.price
     
     # Use self.demanded as input for supply Formula
-    def getPrice(self): 
+    def getPrice(self):
         return self.getPriceFromDemand(self.demanded)
         
     # Increase demand
     def increaseDemand(self, newDemand):
-        self.demanded = self.demanded + newDemand
+        self.demanded += newDemand
+        
+    # To set demand a specific value
+    def setDemand(self, demandIn):
+        self.demanded = demandIn
     
     # Print Object Info
     def printInfo(self):
         print("Info for raw material: {0}".format(self.name))
         print("Supply Curve for this material is: P(Q)={0}*Q**{1}+{2}".format(self.supCoeff, self.supExp, self.supInter))
-        print("Current demanded quantity is: {0}$".format(self.demanded))
+        print("Current demanded quantity is: {0}".format(self.demanded))
         print("Price per quantity to produce the demanded quantity is: {0}$".format(self.price))
         
     # Make a standard supply curve graph
