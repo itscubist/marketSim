@@ -12,13 +12,17 @@ def genericSupplyFormula(supCoeff, supExp, supInter):
 # Class for raw materials, contains supply curve, and hence a function to get price as based on demand
 class RawMaterial:
     
+    # number of raw material types
+    nRawMaterials = 0
+    
     def __init__(self, name, supCoeffIn=5, supExpIn=1, supInterIn=10):
         self.name = name
         self.updateSupplyPars(supCoeffIn, supExpIn, supInterIn)
         self.demanded = 0
         self.price = 0
         self.totalPrice = 0
-    
+        RawMaterial.nRawMaterials = RawMaterial.nRawMaterials + 1
+        
     def updateSupplyPars(self, supCoeffIn, supExpIn, supInterIn):
         self.supCoeff = supCoeffIn
         self.supExp = supExpIn

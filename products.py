@@ -7,16 +7,18 @@ prodRng = np.random.default_rng(prodSeed)
 
 # Product class
 class Product:
-    
+    # Number of products
+    nProducts = 0
     # Initialize
     def __init__(self, name, materialNamesIn):
         self.name = name
         self.materialKeys(materialNamesIn)
         self.produced = 0
+        Product.nProducts = Product.nProducts + 1
     
     # Prepare dictionary keys based on available raw materials
     def materialKeys(self, materialNames):
-        self.materialDict = dict.fromkeys(materialNames,[])
+        self.materialDict = dict.fromkeys(materialNames,0)
         
     # Prepare dictionary values based on required materials
     def setMaterialReqs(self, materialReqs):
@@ -30,9 +32,9 @@ class Product:
         materialListTemp = [k for k in self.materialDict]
         prodRng.shuffle(materialListTemp)
         # Update first element (and second element if there are two required material types) by a random integer between 1 to 3 inclusive
-        self.materialDict.update(materialListTemp[0], prodRng.integers(1,4))
+        self.materialDict[materialListTemp[0]] = prodRng.integers(1,4)
         if self.materialTypeCtr>1:
-            self.materialDict.update(materialListTemp[1], prodRng.integers(1,4))
+            self.materialDict[materialListTemp[1]] = prodRng.integers(1,4)
 
     def increaseProduced(self, produceInc):
         self.produced = self.produced + produceInc
@@ -41,7 +43,7 @@ class Product:
         self.totalMaterialCost = matCost
         
     def printInfo(self):
-        print("Product name is:[0]".format(self.name))
+        print("Product name is:{0}".format(self.name))
         print("Raw material requirements are:")
         for k in self.materialDict:
-            print("Material: [0], Requirement: [1]".format(k,self.MaterialDict[k]))
+            print("Material: {0}, Requirement: {1}".format(k,self.materialDict[k]))
