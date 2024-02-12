@@ -36,7 +36,7 @@ class RawMaterial:
         self.price = supplyFormula(demand)
         return self.price
     
-    # Use self.demand as input for supply Formula
+    # Use self.demanded as input for supply Formula
     def getPrice(self): 
         return self.getPriceFromDemand(self.demanded)
         
