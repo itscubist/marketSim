@@ -17,6 +17,7 @@ class Product:
         self.produced = 0
         self.materialCostPerItem = 0
         self.totalMaterialCost = 0
+        self.sellPrice = 0
         Product.nProducts += 1
     
     # Prepare dictionary keys based on available raw materials
