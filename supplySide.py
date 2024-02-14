@@ -29,9 +29,9 @@ class RawMaterial:
         self.supInter = supInterIn
         
     def setRandomSupplyPars(self):
-        supCoeff = supRng.normal(1,0.1,1)
-        supExp = supRng.normal(1.25,0.05,1)
-        supInter = (5-1)*supRng.random() + 1
+        supCoeff = supRng.normal(0.01,0.001,1)
+        supExp = supRng.normal(1.00,0.1,1)
+        supInter = (0.05-0.01)*supRng.random() + 0.01
         self.updateSupplyPars(supCoeff, supExp, supInter)
     
     # Generate supply formula from parameters and get price from demand

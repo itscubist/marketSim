@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import supplySide as sup
 import products as prod
+import demandSide as dem
 
 # Testing imported classes and their functionalities
 
@@ -59,8 +60,38 @@ for i in range(len(matList)):
     print("\n --- \n")
 
 # Now calculate total cost of required products due to raw material requirements
+#for i in range(len(prodList)):
+#    prodList[i].getMaterialCostPerItem()
+#    prodList[i].getTotalMaterialCost()
+#    prodList[i].printInfo()
+#    print("\n --- \n")
+
+# Set profit percentage per item
+profitPercentage = 5
 for i in range(len(prodList)):
     prodList[i].getMaterialCostPerItem()
     prodList[i].getTotalMaterialCost()
+    prodList[i].setProfitPercentage(profitPercentage)
     prodList[i].printInfo()
     print("\n --- \n")
+    
+# Simulate 1000 costumers
+costumerNameList = ["C{0}".format(i+1) for i in range(10)]
+costumerList = [dem.Costumer(s, prodNameList) for s in costumerNameList]
+for i in range(len(costumerList)):
+    # Random initialization routine
+    costumerList[i].setProductObjects(prodList)
+    costumerList[i].setRandomTotalBudget()
+    costumerList[i].setRandomProductProbabilities()
+    # Buy products
+    costumerList[i].buyProducts()
+    # Print costumer info
+    costumerList[i].printInfo()
+
+# Reprint product info after sales
+for i in range(len(prodList)):
+    prodList[i].printInfo()
+
+    
+
+    
