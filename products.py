@@ -15,13 +15,17 @@ class Product:
     def __init__(self, name, materialNamesIn):
         self.name = name
         self.materialKeys(materialNamesIn)
+        self.softReset()
+        Product.nProducts += 1
+        
+    # Reset production, sales, profit, material cost etc. But keep material requirements and dictionaries
+    def softReset(self):
         self.produced = 0
         self.materialCostPerItem = 0
         self.totalMaterialCost = 0
         self.sellPrice = 0
         self.profitPerItem = 0
         self.sales = 0
-        Product.nProducts += 1
     
     # Prepare dictionary keys based on available raw materials
     def materialKeys(self, materialNames):

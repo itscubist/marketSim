@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import supplySide as sup
 import products as prod
 import demandSide as dem
+import companies as comp
 
 # Testing imported classes and their functionalities
 
@@ -76,27 +77,91 @@ for i in range(len(prodList)):
     print("\n --- \n")
     
 # Simulate 1000 costumers
+
+
 costumerNameList = ["C{0}".format(i+1) for i in range(10000)]
 costumerList = [dem.Costumer(s, prodNameList) for s in costumerNameList]
-for i in range(len(costumerList)):
+dem.Costumer.setRandomBudgetMean(15,2)
+for c in costumerList:
     # Random initialization routine
-    costumerList[i].setProductObjects(prodList)
-    costumerList[i].setRandomTotalBudget()
-    costumerList[i].setRandomProductProbabilities()
+    c.setProductObjects(prodList)
+    c.setRandomTotalBudget()
+    c.setRandomProductProbabilities()
     # Buy products
-    costumerList[i].buyProducts()
+    c.buyProducts()
     # Print costumer info
     #costumerList[i].printInfo()
 
 # Reprint product info after sales
-for i in range(len(prodList)):
-    prodList[i].printInfo()
+for p in prodList:
+    p.printInfo()
     
 #Plot budget distribution
 #ax = dem.plotBudgetDist(costumerList)
 #plt.show()
 
-ax = dem.plotBudgetPerProduct(costumerList)
-plt.show()
+#ax = dem.plotBudgetPerProduct(costumerList)
+#plt.show()
 
-    
+# Test company class functions
+print("\n --- TESTING COMPANY CLASS --- \n")
+
+# Reset materials to start
+#for m in matList:
+#    m.softReset()
+# Reset products to start
+#for p in prodList:
+#    p.softReset()
+
+testCompanyCapital = 100000
+#capitalPerProduct = np.ones(len(prodList))*(testCompanyCapital/len(prodList))
+capitalPerProduct = np.array([20000,20000,30000,20000,10000])
+testCompanyProfitPercentage = 5
+#plannedProfitPerProduct = np.ones(len(prodList))*testCompanyProfitPercentage
+plannedProfitPerProduct = np.array([5,10,5,1,3])
+
+
+testCompany = comp.Company("testCompany",prodNameList,matNameList,testCompanyCapital)
+testCompany.setMaterialObjects(matList)
+testCompany.setProductObjects(prodList)
+testCompany.softResetProductsAndMaterials()
+testCompany.setProductInvestments(capitalPerProduct)
+testCompany.setProductProfitPercentages(plannedProfitPerProduct)
+productArray, argTuple = testCompany.calcProductsFromInvestment()
+testCompany.makeProducts()
+
+# Reset costumers to start, and let them buy products
+for c in costumerList:
+    c.softReset()
+    c.buyProducts()
+
+
+testCompany.calcProfits()
+testCompany.printInfo()
+
+
+
+# Solution accuracy test
+#print(comp.nProductSystem(np.array(productArray),*argTuple))
+
+'''
+# clearly above solution does not work, doing some tests
+testTuple = (argTuple[0],argTuple[1],np.zeros(5),argTuple[3],argTuple[4])
+
+print("\n --- \n")
+print("Comparing price calculation with nProductSystem function below:")
+for p in prodList:
+    print(p.getTotalMaterialCost())
+print(comp.nProductSystem(np.array(prodReqs),*testTuple))
+
+print("\n --- \n")
+# Reprint material info
+for m in matList:
+    m.printInfo()
+    print("\n --- \n")
+
+# Reprint product info
+for p in prodList:
+    p.printInfo()
+    print("\n --- \n")
+'''

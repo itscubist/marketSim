@@ -18,21 +18,35 @@ class RawMaterial:
     def __init__(self, name, supCoeffIn=5, supExpIn=1, supInterIn=10):
         self.name = name
         self.updateSupplyPars(supCoeffIn, supExpIn, supInterIn)
+        self.softReset()
+        RawMaterial.nRawMaterials += 1
+        
+    # Reset demand, price and totalPrice
+    def softReset(self):
         self.demanded = 0
         self.price = 0
         self.totalPrice = 0
-        RawMaterial.nRawMaterials += 1
-        
+    
+    # Update supply curve    
     def updateSupplyPars(self, supCoeffIn, supExpIn, supInterIn):
         self.supCoeff = supCoeffIn
         self.supExp = supExpIn
         self.supInter = supInterIn
         
+    # Randomly set supply curve
     def setRandomSupplyPars(self):
         supCoeff = float(supRng.normal(0.01,0.001,1))
         supExp = float(supRng.normal(1.00,0.1,1))
         supInter = float((0.05-0.01)*supRng.random() + 0.01)
         self.updateSupplyPars(supCoeff, supExp, supInter)
+    
+    # Returns supply parameters
+    def getSupplyPars(self):
+        return self.supCoeff, self.supExp, self.supInter
+    
+    # Returns supply formula
+    def getSupplyFormula(self):
+        return genericSupplyFormula(self.supCoeff, self.supExp, self.supInter)
     
     # Generate supply formula from parameters and get price from demand
     def getPriceFromDemand(self, demand):

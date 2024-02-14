@@ -13,12 +13,19 @@ class Costumer:
     combinedBudget = 0
     combinedRemBudget = 0
     
+    randomBudgetMean = 15
+    
     def __init__(self, name, productNamesIn):
         self.name = name
         self.productKeys(productNamesIn)
         self.totalBudget = 0
-        self.remBudget = 0
+        self.softReset()
         Costumer.nCostumers += 1
+        
+    # reset remaining budget and bought product dictionary but keep everything else
+    def softReset(self):
+        self.remBudget = copy.copy(self.totalBudget)
+        self.boughtProdDict = dict.fromkeys(list(self.prodProbDict.keys()),0)
     
     # For resetting global class vars if needed
     def resetClassVars():
@@ -58,10 +65,16 @@ class Costumer:
         self.totalBudget = totalBudgetIn
         self.remBudget = copy.copy(self.totalBudget)
         
+    # This is a class function, that sets the costumer mean total budget for the created instances
+    def setRandomBudgetMean(meanIn,sigmaIn):
+        Costumer.randomBudgetMean = float(demRng.normal(meanIn,sigmaIn,1))
+        return Costumer.randomBudgetMean
+        
     # Set budget randomly from global costumer budget distribution, and equate remaining budget to the total budget
     def setRandomTotalBudget(self):
-        # First parameter determines the shape of the distribution (falls faster with larger par), the multiplicative factor just scales the budget 
-        self.totalBudget = float(demRng.pareto(2,1)*1000)
+        # First parameter determines the shape of the distribution (falls faster with larger par)
+        # The multiplicative factor just scales the average budget of the pareto distribution
+        self.totalBudget = float(demRng.pareto(2,1)*Costumer.randomBudgetMean)
         self.remBudget = copy.copy(self.totalBudget)
         return self.totalBudget
     
@@ -126,3 +139,6 @@ def plotBudgetPerProduct(costumerList):
     # Plot
     fig, ax = plt.subplots()
     ax.pie(prodBudgets, labels=prodNames)
+    return ax
+
+
