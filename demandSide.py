@@ -103,4 +103,26 @@ class Costumer:
             print("Probability of buying product (as budget permits): {0} is {1:.2f}".format(k,self.prodProbDict[k]))
             print("Number of bought products of type: {0} is {1}".format(k,self.boughtProdDict[k]))
         print("Remaining budget after purchases:{0:.2f}".format(self.remBudget))
-        
+
+
+# Function to plot budget distribution of the costumers
+def plotBudgetDist(costumerList):
+        totalBudgets = np.array([c.totalBudget for c in costumerList])
+        nBins = round(len(totalBudgets)/10) if len(totalBudgets)>10 else 1
+        f, ax = plt.subplots()
+        ax.hist(totalBudgets,nBins)
+        ax.set_title("Costumer Budget Distribution")
+        ax.set_xlabel("Total Budget of A Costumer")
+        ax.set_ylabel("Counts")
+        return ax
+    
+# Function to return all costumers budget distribution
+def plotBudgetPerProduct(costumerList):
+    # Get product names from first costumer
+    prodNames = list(costumerList[0].prodProbDict.keys())
+    # Estimate product budgets as sum over costumers totalBudget*probability of product
+    prodBudgets = sum([c.totalBudget*np.array(list(c.prodProbDict.values())) for c in costumerList])
+    print(prodBudgets)
+    # Plot
+    fig, ax = plt.subplots()
+    ax.pie(prodBudgets, labels=prodNames)

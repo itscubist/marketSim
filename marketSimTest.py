@@ -76,7 +76,7 @@ for i in range(len(prodList)):
     print("\n --- \n")
     
 # Simulate 1000 costumers
-costumerNameList = ["C{0}".format(i+1) for i in range(10)]
+costumerNameList = ["C{0}".format(i+1) for i in range(10000)]
 costumerList = [dem.Costumer(s, prodNameList) for s in costumerNameList]
 for i in range(len(costumerList)):
     # Random initialization routine
@@ -86,12 +86,17 @@ for i in range(len(costumerList)):
     # Buy products
     costumerList[i].buyProducts()
     # Print costumer info
-    costumerList[i].printInfo()
+    #costumerList[i].printInfo()
 
 # Reprint product info after sales
 for i in range(len(prodList)):
     prodList[i].printInfo()
-
     
+#Plot budget distribution
+#ax = dem.plotBudgetDist(costumerList)
+#plt.show()
+
+ax = dem.plotBudgetPerProduct(costumerList)
+plt.show()
 
     
