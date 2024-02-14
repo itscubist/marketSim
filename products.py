@@ -132,11 +132,11 @@ class Product:
         print("Total produced quantity: {0}".format(self.produced))
         print("Raw material requirements per item are:")
         for k in self.materialDict:
-            print("Material: {0}, Requirement: {1}, Cost Per Required Material: {2}".format(k,self.materialDict[k],self.matObjectDict[k].getPrice()))
-        print("Cost per product: {0}, and cost for all products: {1}".format(self.materialCostPerItem, self.totalMaterialCost))
-        print("Designated profit per item: {0}. Corresponding price per item: {1}".format(self.profitPerItem,self.sellPrice))
-        print('Total potential profit (if all products are sold): {0}. Corresponding total price: {1}'.format(self.getPotTotalProfit(),self.getPotTotalPrice()))
-        print('Total actual profit (based on actual sold products): {0}. Corresponding total price: {1}'.format(self.getTotalProfit(),self.getTotalPrice()))
+            print("Material: {0}, Requirement: {1}, Cost Per Required Material: {2:.3f}".format(k,self.materialDict[k],self.matObjectDict[k].getPrice()))
+        print("Cost per product: {0:.3f}, and cost for all products: {1:.3f}".format(self.materialCostPerItem, self.totalMaterialCost))
+        print("Designated profit per item: {0:.4f}. Corresponding price per item: {1:.3f}".format(self.profitPerItem,self.sellPrice))
+        print('Total potential profit (if all products are sold): {0:.3f}. Corresponding total price: {1:.3f}'.format(self.getPotTotalProfit(),self.getPotTotalPrice()))
+        print('Total actual profit (based on actual sold products): {0:.3f}. Corresponding total price: {1:.3f}'.format(self.getTotalProfit(),self.getTotalPrice()))
         print('Produced: {0}, Sold:{1}, Remaining:{2}'.format(self.produced,self.sales,self.getRemaining()))
         
         

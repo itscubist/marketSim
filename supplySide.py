@@ -29,9 +29,9 @@ class RawMaterial:
         self.supInter = supInterIn
         
     def setRandomSupplyPars(self):
-        supCoeff = supRng.normal(0.01,0.001,1)
-        supExp = supRng.normal(1.00,0.1,1)
-        supInter = (0.05-0.01)*supRng.random() + 0.01
+        supCoeff = float(supRng.normal(0.01,0.001,1))
+        supExp = float(supRng.normal(1.00,0.1,1))
+        supInter = float((0.05-0.01)*supRng.random() + 0.01)
         self.updateSupplyPars(supCoeff, supExp, supInter)
     
     # Generate supply formula from parameters and get price from demand
@@ -55,7 +55,7 @@ class RawMaterial:
     # Print Object Info
     def printInfo(self):
         print("Info for raw material: {0}".format(self.name))
-        print("Supply Curve for this material is: P(Q)={0}*Q**{1}+{2}".format(self.supCoeff, self.supExp, self.supInter))
+        print("Supply Curve for this material is: P(Q)={0:.3f}*Q**{1:.3f}+{2:.3f}".format(self.supCoeff, self.supExp, self.supInter))
         print("Current demanded quantity is: {0}".format(self.demanded))
         print("Price per quantity to produce the demanded quantity is: {0}$".format(self.price))
         

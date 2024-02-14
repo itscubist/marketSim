@@ -61,7 +61,7 @@ class Costumer:
     # Set budget randomly from global costumer budget distribution, and equate remaining budget to the total budget
     def setRandomTotalBudget(self):
         # First parameter determines the shape of the distribution (falls faster with larger par), the multiplicative factor just scales the budget 
-        self.totalBudget = demRng.pareto(2,1)*1000
+        self.totalBudget = float(demRng.pareto(2,1)*1000)
         self.remBudget = copy.copy(self.totalBudget)
         return self.totalBudget
     
@@ -97,10 +97,10 @@ class Costumer:
     # Print important quantities
     def printInfo(self):
         print("Costumer name is: {0}".format(self.name))
-        print("Total costumer budget was: {0}".format(self.totalBudget))
+        print("Total costumer budget was: {0:.2f}".format(self.totalBudget))
         for k in self.prodProbDict:
-            print("Price of product: {0} is {1:.2f}".format(k,float(self.prodObjectDict[k].getSellPrice())))
-            print("Probability of buying product (as budget permits): {0} is {1:1.2f}".format(k,self.prodProbDict[k]))
+            print("Price of product: {0} is {1:.2f}".format(k,self.prodObjectDict[k].getSellPrice()))
+            print("Probability of buying product (as budget permits): {0} is {1:.2f}".format(k,self.prodProbDict[k]))
             print("Number of bought products of type: {0} is {1}".format(k,self.boughtProdDict[k]))
-        print("Remaining budget after purchases:{0}".format(self.remBudget))
+        print("Remaining budget after purchases:{0:.2f}".format(self.remBudget))
         
