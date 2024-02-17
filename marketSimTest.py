@@ -97,10 +97,10 @@ for p in prodList:
     p.printInfo()
     
 #Plot budget distribution
-#ax = dem.plotBudgetDist(costumerList)
+#f, ax = dem.plotBudgetDist(costumerList)
 #plt.show()
 
-#ax = dem.plotBudgetPerProduct(costumerList)
+#f, ax = dem.plotBudgetPerProduct(costumerList)
 #plt.show()
 
 # Test company class functions

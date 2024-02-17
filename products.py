@@ -42,6 +42,8 @@ class Product:
         
     # Set required materials randomly
     def setRandomMaterialReqs(self):
+        #Reset current values to 0
+        self.materialDict = dict.fromkeys(list(self.materialDict.keys()),0)
         # Determine the number of required material types: either 1 or 2 (only if there are 2 or more material types available)
         self.materialTypeCtr = prodRng.integers(1,max(3,len(self.materialDict)+1))
         # Determine which raw materials by shuffling and taking first elements:

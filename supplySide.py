@@ -79,7 +79,7 @@ class RawMaterial:
         demandedSave = self.demanded
         priceSave = self.price
         # Loop over some example demands and calculate the corresponding prices
-        testDemands = np.linspace(0,1000,1000)
+        testDemands = np.linspace(0,10000,10000)
         testPrices = [self.getPriceFromDemand(d) for d in testDemands]
         # Restore demand and price
         self.demanded = demandedSave
@@ -90,4 +90,7 @@ class RawMaterial:
         ax.set_title("{0} supply curve".format(self.name))
         ax.set_xlabel("Demanded Quantity")
         ax.set_ylabel("Price per Item ($)")
-        return ax
+        plt.axvline(x=self.demanded, color='red', linestyle='--', label='Demand')
+        plt.axhline(y=self.price, color='red', linestyle='--', label='Price')
+        #plt.grid()
+        return f, ax

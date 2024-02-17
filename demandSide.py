@@ -122,12 +122,13 @@ class Costumer:
 def plotBudgetDist(costumerList):
         totalBudgets = np.array([c.totalBudget for c in costumerList])
         nBins = round(len(totalBudgets)/10) if len(totalBudgets)>10 else 1
-        f, ax = plt.subplots()
+        fig, ax = plt.subplots()
         ax.hist(totalBudgets,nBins)
         ax.set_title("Costumer Budget Distribution")
-        ax.set_xlabel("Total Budget of A Costumer")
+        ax.set_xlabel("Costumer Budgets")
         ax.set_ylabel("Counts")
-        return ax
+        plt.yscale('log')
+        return fig, ax
     
 # Function to return all costumers budget distribution
 def plotBudgetPerProduct(costumerList):
@@ -138,7 +139,8 @@ def plotBudgetPerProduct(costumerList):
     print(prodBudgets)
     # Plot
     fig, ax = plt.subplots()
-    ax.pie(prodBudgets, labels=prodNames)
-    return ax
+    combLabels = ["{0}: {1:.1f}$".format(s,i) for s,i in zip(prodNames,prodBudgets)]
+    ax.pie(prodBudgets, labels=combLabels, labeldistance=1.05)
+    return fig, ax
 
 
